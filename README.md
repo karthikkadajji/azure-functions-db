@@ -9,6 +9,9 @@ Azure function:
 
 After you have created the azure function container, ensure you add the following additional environment variables if not available.
 
+ Configure your azure app to pull from the image using
+ NOTE: it is advisible to build your own image and push it to docker hub and add the webhook to enable cicd
+  
 [
   {
     "name": "AzureWebJobsStorage",
@@ -77,15 +80,11 @@ After you have created the azure function container, ensure you add the followin
   }
 ]
   
- Configure your azure app to pull from the image using
- NOTE: it is advisible to build your own image and push it to docker hub and add the webhook to enable cicd
-  
-  ## building the image:
-  
+## building the image:
   docker build --tag <dockerid>/tag .
   docker push <dockerid>/tag
   
-  ####To run locally
+## To run locally:
   docker run -p 8080:80 -it <dockerid>/tag bash 
   
 Testing endpoint in azure:
