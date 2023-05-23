@@ -2,7 +2,7 @@
 contains azure functions for db operations
 
 ## Pre-requisite:
-Postgres-13 \n
+Postgres-13  
 resources for azure function
 
 Azure function:
@@ -88,4 +88,4 @@ After you have created the azure function container, ensure you add the followin
   docker run -p 8080:80 -it <dockerid>/tag bash  
   
 Testing endpoint in azure:  
-https://<appname>/api/databasebackup?code=<function code>/&database_name=<db name>&container_name=<container name>  
+https://< appname >/api/databasebackup?code=< function code >/&database_name=< db name >&container_name=< container name >  
