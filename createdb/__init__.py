@@ -3,6 +3,7 @@ import psycopg2
 import azure.functions as func
 import os
 
+
 def execute_query_from_file(conn, file_path, *args):
     """Execute SQL query from a file"""
     with open(file_path, 'r') as file:
@@ -10,6 +11,7 @@ def execute_query_from_file(conn, file_path, *args):
 
     with conn.cursor() as cursor:
         cursor.execute(query, args)
+
 
 def create_database(conn, database_name):
     """Create a new database"""
@@ -53,6 +55,7 @@ def create_students_table(conn):
     except psycopg2.Error as e:
         logging.error(f"Error creating table: {e}")
 
+
 def insert_students_data(conn, data):
     """Insert student data into the 'students' table"""
 
@@ -64,16 +67,17 @@ def insert_students_data(conn, data):
             INSERT INTO students (name, age, grade)
             VALUES (%s, %s, %s);
         '''
-        name= "karthik"
-        age= 23
-        grade= 9.5
+        name = "karthik"
+        age = 23
+        grade = 9.5
         with conn.cursor() as cursor:
-                cursor.execute(insert_data_query, (name, age, grade))
+            cursor.execute(insert_data_query, (name, age, grade))
         logging.info("Data inserted successfully.")
     except psycopg2.Error as e:
         logging.error(f"Error inserting data: {e}")
     finally:
         conn.close()
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -89,10 +93,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     create_students_table(conn_new)
 
     students_data = [
-    ("John Smith", 18, 85.5),
-    ]    
-    
+        ("John Smith", 18, 85.5),
+    ]
+
     insert_students_data(conn_new, students_data)
-
-
-
