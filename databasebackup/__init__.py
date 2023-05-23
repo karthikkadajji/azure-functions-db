@@ -45,7 +45,6 @@ def upload_backup_container(container_name, upload_file_path):
     finally:
         os.remove(upload_file_path)
 
-
 def main(req: func.HttpRequest) -> func.HttpResponse:
     database_name = req.params.get("database_name")
     container_name = req.params.get("container_name")
