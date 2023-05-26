@@ -6,3 +6,4 @@ azure-functions
 psycopg2-binary
 azure-core==1.26.4
 azure-storage-blob==12.16.0
+azure-storage-file-datalake==12.11.0

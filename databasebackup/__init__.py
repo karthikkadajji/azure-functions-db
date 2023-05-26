@@ -30,7 +30,7 @@ def dump_database(database_name):
     return database_bck_path
 
 
-def upload_backup_container(container_name, upload_file_path):
+def upload_backup_container(container_name, upload_file_path, database_name):
     blob_service_client = BlobServiceClient.from_connection_string(
         os.getenv('STORAGE_CONNECTION_STRING'))
     new_container = blob_service_client
@@ -39,7 +39,7 @@ def upload_backup_container(container_name, upload_file_path):
     except ResourceExistsError:
         pass
     blob_client = new_container.get_blob_client(
-        container=container_name, blob=Path(upload_file_path).name)
+        container=container_name, blob=database_name+"/"+Path(upload_file_path).name)
     try:
         with open(upload_file_path, "rb") as data:
             blob_client.upload_blob(data, blob_type="BlockBlob")
@@ -57,7 +57,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     backup_path = ""
     try:
         backup_path = dump_database(database_name=database_name)
-        upload_backup_container(container_name, backup_path)
+        upload_backup_container(
+            container_name, backup_path, database_name=database_name)
         return func.HttpResponse(f"Uploaded backup to {container_name} as blob {Path(backup_path).name}")
     except Exception as e:
         logging.error(f"Error {e} while running the backup of {database_name}")
