@@ -79,10 +79,12 @@ Contains Azure Functions for database operations.
 
   
 ## building the image:
+   ```bash
   docker build --tag <dockerid>/tag .  
   docker push <dockerid>/tag  
   
-## To run locally:  
+## To run locally:
+   ```bash
   docker run -p 8080:80 -it <dockerid>/tag bash  
   
 Testing endpoint in azure:  
